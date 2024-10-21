@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <input type="checkbox" id="menuToggle" style="display: none;">
+
+        <lable class="humburgur" for="menuToggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </lable>
+        <!-- Dropdown Menu -->
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+    </div>
+<div class="container">
+    <h1>Healthcare Chatbot</h1>
+    <div class="chat-box" id="chat-box"></div>
+    <input type="text" id="user-input" class="chat-input" placeholder="Type your prompt here...">
+    <button onclick="sendMessage()"> <i class="fa fa-paper-plane"></i></button>
+</div>
+    
+<script>
+    // Chatbot response pairs
+    const pairs = [
+        ["your name", "My name is HealthBot. I am here to assist you with health-related queries."],
+        ["how are you", "I am doing well, thank you! How about you?"],
+        ["help", "I can assist you with information about common health issues like headaches, fevers, or suggest when you might need to see a doctor."],
+        ["headache", "For headaches, make sure you're hydrated and try resting in a dark room. If the headache persists, consult a doctor."],
+        ["fever", "For fever, stay hydrated and rest. If it’s over 102°F or lasts more than a few days, see a doctor."],
+        ["covid", "If you think you have COVID-19, monitor symptoms, isolate, and test. If severe, seek medical attention immediately."],
+        ["tired", "Feeling tired could be due to stress, poor diet, or lack of sleep. Consider a balanced diet, exercise, and good sleep."],
+        ["stomach pain", "For mild stomach pain, try eating smaller meals, avoid spicy foods, and stay hydrated. If pain is severe or persistent, consult a doctor."],
+    ["cough", "For a cough, stay hydrated and use a humidifier to ease symptoms. If the cough lasts more than three weeks or you have trouble breathing, see a doctor."],
+    ["sore throat", "For a sore throat, gargle with warm salt water, drink warm liquids, and rest your voice. If it persists, consider seeing a doctor."],
+    ["dizziness", "For dizziness, sit or lie down until it passes, and drink water. If it’s frequent or associated with other symptoms like chest pain, seek medical attention."],
+    ["nausea", "For nausea, try sipping ginger tea or eating bland foods like crackers. Stay hydrated and rest. If nausea persists, consult a healthcare provider."],
+    ["back pain", "For mild back pain, try gentle stretches, apply heat or cold therapy, and rest. If pain is severe or doesn’t improve, consider seeing a specialist."],
+    ["rash", "For a rash, avoid scratching, use a gentle moisturizer, and keep the area clean. If the rash spreads or is painful, consult a dermatologist."],
+    ["insomnia", "For insomnia, create a calming bedtime routine, avoid caffeine, and keep a consistent sleep schedule. If it persists, talk to a doctor about sleep aids."]
+        ["quit", "Thank you for using HealthBot. Take care!"]
+    ];
+
+    // Function to get a chatbot response based on the user input
+    function getChatbotResponse(userInput) {
+        userInput = userInput.toLowerCase();
+
+        // Loop through the chatbot pairs and check if there's a match
+        for (let i = 0; i < pairs.length; i++) {
+            if (userInput.includes(pairs[i][0])) {
+                return pairs[i][1];
+            }
+        }
+        return "I'm sorry, I don't understand that yet. Please ask something about healthcare or contact a healthcare professional.";
+    }
+
+    // Function to handle sending messages
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        const chatBox = document.getElementById("chat-box");
+
+        // Display user input in the chat box
+        const userInputDiv = document.createElement("div");
+        userInputDiv.className = "user-input";
+        userInputDiv.textContent = "You: " + userInput;
+        chatBox.appendChild(userInputDiv);
+
+        // Get chatbot response and display it
+        const botResponse = getChatbotResponse(userInput);
+        const botResponseDiv = document.createElement("div");
+        botResponseDiv.className = "bot-response";
+        botResponseDiv.textContent = "Bot: " + botResponse;
+        chatBox.appendChild(botResponseDiv);
+
+        // Auto-scroll to the bottom of the chat
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Clear the input field
+        document.getElementById("user-input").value = "";
+    }
+</script>
+
+</body>
+</html>
